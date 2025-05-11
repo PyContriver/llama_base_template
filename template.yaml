@@ -3,15 +3,15 @@ kind: Template
 metadata:
   name: llama-base-template
   title: Llama Base Template
-  description: Scaffold a new service using the Llama base template
+  description: Scaffold a new service from llama_base_template
 spec:
   owner: your-team
   type: service
+
   parameters:
-    - title: Project Information
+    - title: Service Details
       required:
         - name
-        - description
       properties:
         name:
           type: string
@@ -21,8 +21,8 @@ spec:
           title: Project Description
 
   steps:
-    - id: fetch-skeleton
-      name: Fetch Skeleton
+    - id: fetch-template
+      name: Fetch Template from GitHub
       action: fetch:template
       input:
         url: https://github.com/PyContriver/llama_base_template/archive/main.zip
@@ -34,10 +34,10 @@ spec:
       name: Publish to GitHub
       action: publish:github
       input:
-        repoUrl: github.com?owner=your-org&repo=${{ parameters.name }}
-        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=PyContriver&repo=${{ parameters.name }}
         defaultBranch: main
         protectDefaultBranch: true
+        description: ${{ parameters.description }}
 
   output:
     links:
