@@ -1,0 +1,45 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: llama-base-template
+  title: Llama Base Template
+  description: Scaffold a new service using the Llama base template
+spec:
+  owner: your-team
+  type: service
+  parameters:
+    - title: Project Information
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          title: Project Name
+        description:
+          type: string
+          title: Project Description
+
+  steps:
+    - id: fetch-skeleton
+      name: Fetch Skeleton
+      action: fetch:template
+      input:
+        url: https://github.com/PyContriver/llama_base_template/archive/main.zip
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        repoUrl: github.com?owner=your-org&repo=${{ parameters.name }}
+        description: ${{ parameters.description }}
+        defaultBranch: main
+        protectDefaultBranch: true
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
