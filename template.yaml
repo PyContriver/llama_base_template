@@ -2,10 +2,10 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: llama-base-template
-  title: Llama Base Template
+  title: Llama Base Template test
   description: Scaffold a new service from llama_base_template
 spec:
-  owner: your-team
+  owner: PyContriver
   type: service
 
   parameters:
